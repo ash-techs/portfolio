@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AshTech - Virtual Software House</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .company-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 50px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.05) 10px,
+                rgba(255, 255, 255, 0.05) 20px
+            );
+            animation: slide 15s linear infinite;
+        }
+
+        @keyframes slide {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .company-logo {
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .company-logo img {
+            width: 180px;
+            height: auto;
+            filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.6));
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .company-tagline {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.95);
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        .card-body {
+            padding: 40px 35px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title i {
+            font-size: 28px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 18px;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 15px;
+            background: white;
+            border-radius: 18px;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+            border-color: #667eea;
+        }
+
+        .social-link i {
+            font-size: 32px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover i {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .social-link span {
+            font-size: 12px;
+            color: #555;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portfolio { color: #667eea; }
+        .youtube { color: #FF0000; }
+        .facebook { color: #1877F2; }
+        .linkedin { color: #0A66C2; }
+        .instagram { color: #E4405F; }
+        .email { color: #EA4335; }
+        .whatsapp { color: #25D366; }
+        .phone { color: #34B7F1; }
+
+        .employees-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .employee-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+        }
+
+        .employee-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+        }
+
+        .employee-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .employee-card:hover {
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.25);
+            border-color: #667eea;
+        }
+
+        .employee-icon {
+            font-size: 48px;
+            min-width: 60px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .employee-card:hover .employee-icon {
+            transform: scale(1.15) rotate(-5deg);
+        }
+
+        .male-icon { 
+            color: #667eea;
+            filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.4));
+        }
+        
+        .female-icon { 
+            color: #764ba2;
+            filter: drop-shadow(0 0 8px rgba(118, 75, 162, 0.4));
+        }
+
+        .employee-info {
+            flex: 1;
+        }
+
+        .employee-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .employee-role {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 30px;
+            max-width: 500px;
+            width: 90%;
+            padding: 0;
+            position: relative;
+            animation: modalSlideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            opacity: 0.08;
+            z-index: 0;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-role {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
+        }
+
+        .modal-body {
+            padding: 35px 30px;
+        }
+
+        .portfolio-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .portfolio-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .portfolio-button i {
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-button:hover i {
+            transform: translateX(5px);
+        }
+
+        @media (max-width: 768px) {
+            .company-name {
+                font-size: 32px;
+            }
+
+            .card-header {
+                padding: 40px 20px;
+            }
+
+            .card-body {
+                padding: 30px 20px;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+
+            .social-link {
+                padding: 15px 10px;
+            }
+
+            .social-link i {
+                font-size: 28px;
+            }
+
+            .employees-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .modal-name {
+                font-size: 26px;
+            }
+
+            .modal-icon {
+                font-size: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .company-name {
+                font-size: 28px;
+            }
+
+            .company-logo {
+                font-size: 42px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .social-links {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="company-card">
+        <div class="card-header">
+            <div class="company-logo">
+                <img src="logo.jpg" alt="AshTech Logo">
+            </div>
+            <p class="company-tagline">Virtual Software House</p>
+        </div>
+
+        <div class="card-body">
+            <div class="section-title">
+                <i class="fas fa-share-alt"></i>
+                Connect With Us
+            </div>
+            <div class="social-links">
+                <a href="https://ashtech-portfolio.vercel.app/" target="_blank" class="social-link">
+                    <i class="fas fa-globe portfolio"></i>
+                    <span>Portfolio</span>
+                </a>
+                <a href="https://www.youtube.com/@ashtechit" target="_blank" class="social-link">
+                    <i class="fab fa-youtube youtube"></i>
+                    <span>YouTube</span>
+                </a>
+                <a href="https://www.facebook.com/profile.php?id=61579724319475" target="_blank" class="social-link">
+                    <i class="fab fa-facebook facebook"></i>
+                    <span>Facebook</span>
+                </a>
+                <a href="https://www.linkedin.com/company/ash-tech-virtual-software-house" target="_blank" class="social-link">
+                    <i class="fab fa-linkedin linkedin"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://www.instagram.com/ashtech.it" target="_blank" class="social-link">
+                    <i class="fab fa-instagram instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="mailto:shehzadaashan@gmail.com" class="social-link">
+                    <i class="fas fa-envelope email"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://wa.me/923157692998" target="_blank" class="social-link">
+                    <i class="fab fa-whatsapp whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="tel:+923157692998" class="social-link">
+                    <i class="fas fa-phone phone"></i>
+                    <span>Call</span>
+                </a>
+            </div>
+
+            <div class="section-title">
+                <i class="fas fa-users"></i>
+                Our Team
+            </div>
+            <div class="employees-grid" id="employeesGrid"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-icon" id="modalIcon"></div>
+                <h2 class="modal-name" id="modalName"></h2>
+                <p class="modal-role" id="modalRole"></p>
+            </div>
+            <div class="modal-body">
+                <a href="#" target="_blank" class="portfolio-button" id="modalPortfolioLink">
+                    <span>Visit Portfolio</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const employees = [
+            { name: "Aashan Shehzad", role: "Founder", url: "https://www.linkedin.com/in/aashan-shehzad-7b659a276/", gender: "male" },
+            { name: "Ahad Raza", role: "Computer Vision Engineer", url: "https://ahadrazarc.vercel.app/", gender: "male" },
+            { name: "Hamza Awaz", role: "Frontend Developer", url: "https://hamza-portfolio-dun-kappa.vercel.app/", gender: "male" },
+            { name: "Isma Ayaz", role: "Frontend Developer", url: "https://ia-portfolio-fjet.vercel.app/", gender: "female" },
+            { name: "Mishal Rizwan", role: "UI/UX Designer", url: "https://www.figma.com/proto/ltHDwRUpbgXzJPnUDAISBS/portfolio?node-id=2-8927&p=f&t=vDVWPzse9uEODij8-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A8927", gender: "female" },
+            { name: "Nayab Ashraf", role: "AI/ML Developer", url: "https://nayab-portfolio-uwg8.vercel.app/", gender: "female" },
+            { name: "Noor Shezar", role: "Web & Graphic Designer", url: "https://shaz-stellar.github.io/portfolio/", gender: "female" },
+            { name: "Talha Saeed", role: "CTO & Developer", url: "https://ethical2001.github.io/my-resume/", gender: "male" },
+            { name: "Usman Farooq", role: "Backend Developer", url: "https://usmanfarooq-portfolio.vercel.app/", gender: "male" },
+            { name: "Zainab Khalid", role: "AI/ML Developer", url: "https://zainakhalid.github.io/Portfolio/", gender: "female" }
+        ];
+
+        const grid = document.getElementById('employeesGrid');
+        const modal = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalName = document.getElementById('modalName');
+        const modalRole = document.getElementById('modalRole');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalPortfolioLink = document.getElementById('modalPortfolioLink');
+
+        employees.forEach(emp => {
+            const card = document.createElement('div');
+            card.className = 'employee-card';
+            
+            const icon = emp.gender === 'male' ? 'fa-user' : 'fa-user';
+            const iconClass = emp.gender === 'male' ? 'male-icon' : 'female-icon';
+            
+            card.innerHTML = `
+                <div class="employee-icon ${iconClass}">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="employee-info">
+                    <div class="employee-name">${emp.name}</div>
+                    <div class="employee-role">${emp.role}</div>
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                modalName.textContent = emp.name;
+                modalRole.textContent = emp.role;
+                modalIcon.innerHTML = `<i class="fas ${icon} ${iconClass}"></i>`;
+                modalPortfolioLink.href = emp.url;
+                modal.classList.add('active');
+            });
+            
+            grid.appendChild(card);
+        });
+
+        modalClose.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
